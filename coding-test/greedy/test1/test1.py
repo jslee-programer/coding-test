@@ -16,7 +16,7 @@
 # 1. 입력 받는 서비스 - test1.py
 # 2. 로직
 
-from test1 import service
+from greedy.test1 import service
 
 if __name__ == '__main__':
     sv = service.Service(1260)

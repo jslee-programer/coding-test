@@ -1,6 +1,6 @@
 # 큰 수의 법칙
 
-from test2 import service
+from greedy.test2 import service
 
 if __name__ == '__main__':
     print("hello")
