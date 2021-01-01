@@ -46,7 +46,6 @@ class Service:
         count = 1  # 방문한 횟수
         change_vector_count = 0  # 방향전환 횟수 체크
         while True:
-            change_vector_count = (change_vector_count + 1) % 5
             self._map[tuple(self.current_location)]['experience'] = False
             moving = self._VECTOR.get(self.direction)
             check_vector = tuple([self.current_location[0] + moving[0], self.current_location[1] + moving[1]])
@@ -64,13 +63,16 @@ class Service:
                 # 이경우엔 육지 or 바다인지만 확인하면 됨
                 check_vector = tuple([self.current_location[0] - moving[0], self.current_location[1] - moving[1]])
                 if self.can_moving(check_vector):
+                    change_vector_count = 0
                     self.current_location = check_vector
+                    continue
 
                 # 뒤로 갈수도 없으므로 BREAK
                 break
             else:
                 # 4방향을 아직 안돌았으므로
                 # 방향전환
+                change_vector_count = (change_vector_count + 1) % 5
                 self.direction = self.direction + 1 if self.direction < 3 else 0
         return count
 
