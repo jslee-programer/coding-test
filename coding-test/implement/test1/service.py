@@ -1,8 +1,12 @@
 class Service:
+    # >>>> 답지 보고 추가1>>>>
+    MOVE_TYPES = ('R', 'L', 'U', 'D',)
+
     def __init__(self, n, moves):
         self.n = self._make_map(n)
         self.move_li = [move for move in moves.split(" ")]
         self.location = [1, 1]
+        self.move_fn = (self._right_move, self._left_move, self._up_move, self._down_move,)
         pass
 
     def __repr__(self):
@@ -22,14 +26,10 @@ class Service:
 
     def run(self):
         for _, move in enumerate(self.move_li):
-            if move == 'R':
-                self._right_move()
-            if move == 'L':
-                self._left_move()
-            if move == 'U':
-                self._up_move()
-            if move == 'D':
-                self._down_move()
+            for i, move_type in enumerate(self.MOVE_TYPES):
+                if move_type == move:
+                    self.move_fn[i]()
+                    continue
 
         return self.location
 
@@ -38,30 +38,29 @@ class Service:
         column -= 1
 
         if column < 0 or row < 0:
+            print(row, column)
+            print(self.location)
             print("좌표값을 벗어났습니다.")
             return self.location
 
         self.location = self.n[row][column]
-        row, column = self.location
-        return row, column
 
     def _left_move(self):
         row, column = self.location
         column -= 1
-        self.location = list(self._current_location(row, column))
-        pass
+        self._current_location(row, column)
 
     def _right_move(self):
         row, column = self.location
         column += 1
-        self.location = list(self._current_location(row, column))
+        self._current_location(row, column)
 
     def _up_move(self):
         row, column = self.location
         row -= 1
-        self.location = list(self._current_location(row, column))
+        self._current_location(row, column)
 
     def _down_move(self):
         row, column = self.location
         row += 1
-        self.location = list(self._current_location(row, column))
+        self._current_location(row, column)
