@@ -36,8 +36,8 @@ class Service:
     def _current_location(self, row, column):
         row -= 1
         column -= 1
-
-        if column < 0 or row < 0:
+        limit = len(self.n) - 1
+        if not (limit >= column >= 0 and limit >= row >= 0):
             print(row, column)
             print(self.location)
             print("좌표값을 벗어났습니다.")
